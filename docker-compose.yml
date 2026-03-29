@@ -1,0 +1,17 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    container_name: book-service-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-bookdb}
+      POSTGRES_USER: ${DB_USERNAME:-bookuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bookpassword}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
